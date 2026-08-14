@@ -20,7 +20,7 @@ public class Encryptor {
             
             System.out.println("Texto original: " + content);
 
-            // TODO: Encrypt 'content' character by character using 'matrix'
+            // Empezamos a encriptar
             Random rand = new Random();
             
             // Empezamos el bucle para recorrer cada caracter del contenido del archivo
