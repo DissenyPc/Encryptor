@@ -5,51 +5,24 @@ import java.nio.file.Path;
 
 public class Encryptor {
 
-    private static final char[] ALPHABET = {
-        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ñ',
-        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'ñ',
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-        '(', ')', '%', ',', '.', '-', ';', ':', '_', '?', '¿', '¡', '!', 'ª', 'º', '@', '$', '&', '/', '+', '*', '{', '}', '[', ']', '=', ' '
-    };
-    private static final long SECRET_SEED = 123456789L;
     private static final String FILE_NAME = "input.txt";
 
-    public static char[][] getStaticMatrix() {
-        int n = ALPHABET.length;
-        char[][] matrix = new char[n][n];
-
-        matrix[0] = ALPHABET.clone();
-        Random random = new Random(SECRET_SEED);
-
-        for (int i = 1; i < n; i++) {
-            char[] shuffledRow = ALPHABET.clone();
-            
-            for (int j = shuffledRow.length - 1; j > 0; j--) {
-                int randomIndex = random.nextInt(j + 1);
-                char temp = shuffledRow[randomIndex];
-                shuffledRow[randomIndex] = shuffledRow[j];
-                shuffledRow[j] = temp;
-            }
-            
-            matrix[i] = shuffledRow;
-        }
-
-        return matrix;
-    }
-
     public void execute() {
-        char[][] matrix = getStaticMatrix();
+         // Llamamos a la clase CrearMatriz para crear la matriz de cifrado
+        CrearMatriz creador = new CrearMatriz();
+        char[][] matrix = creador.empezarMatriz();
         System.out.println("Matriz creada con exito con " + matrix.length + " filas y " + matrix[0].length + " columnas.");
 
+        String textoCifrado = "";
         try {
             // Read the entire text file into a String
             String content = Files.readString(Path.of(FILE_NAME));
             
-            System.out.println("Original text: " + content);
+            System.out.println("Texto original: " + content);
 
             // TODO: Encrypt 'content' character by character using 'matrix'
             Random rand = new Random();
-            String textoCifrado = "";
+            
             // Empezamos el bucle para recorrer cada caracter del contenido del archivo
             for ( int i = 0; i < content.length(); i++) {
 
@@ -78,11 +51,21 @@ public class Encryptor {
             }
 
             }
+            System.out.println("Texto cifrado: " + textoCifrado);
 
         } catch (IOException e) {
             System.out.println("Error leyendo el archivo: " + e.getMessage());
         }
-    }
+
+        String outputFileName = "output.txt";
+
+        try {
+            Files.writeString(Path.of(outputFileName), textoCifrado);
+            System.out.println("File saved successfully as " + outputFileName);
+        } catch (IOException e) {
+            System.out.println("Error saving the file: " + e.getMessage());
+        }
+            }
 
     // Si el valor es menor a 10 se añade siempre un 0 delante para que siempre tenga dos digitos
     private String comprobarTamañoNumero(int numero, String textoCifrado) {
