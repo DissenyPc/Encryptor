@@ -9,8 +9,13 @@ public class Encryptor {
     // Nombre del archivo de entrada que contiene el texto en texto plano
     private static final String FILE_NAME = "input.txt";
 
-    // Método principal para ejecutar el proceso de cifrado
+    // Método principal para ejecutar el proceso de cifrado con los archivos por defecto
     public void execute() {
+        execute(FILE_NAME, "output.txt");
+    }
+
+    // Sobrecarga del método execute que permite especificar los archivos de entrada y salida
+    public void execute(String inputPath, String outputPath) {
          // Llamamos a la clase CrearMatriz para crear la matriz de cifrado
         CrearMatriz creador = new CrearMatriz();
         char[][] matrix = creador.empezarMatriz();
@@ -20,7 +25,7 @@ public class Encryptor {
         String textoCifrado = "";
         try {
             // Read the entire text file into a String
-            String content = Files.readString(Path.of(FILE_NAME));
+            String content = Files.readString(Path.of(inputPath));
             
             System.out.println("Texto original: " + content);
 
@@ -65,17 +70,16 @@ public class Encryptor {
 
         } catch (IOException e) {
             System.out.println("Error leyendo el archivo: " + e.getMessage());
+            throw new RuntimeException("Error leyendo el archivo: " + e.getMessage(), e);
         }
-
-        // Nombre del archivo de salida donde escribiremos el resultado cifrado
-        String outputFileName = "output.txt";
 
         try {
             // Escribimos la cadena final cifrada en el archivo destino
-            Files.writeString(Path.of(outputFileName), textoCifrado);
-            System.out.println("File saved successfully as " + outputFileName);
+            Files.writeString(Path.of(outputPath), textoCifrado);
+            System.out.println("File saved successfully as " + outputPath);
         } catch (IOException e) {
             System.out.println("Error saving the file: " + e.getMessage());
+            throw new RuntimeException("Error guardando el archivo: " + e.getMessage(), e);
         }
     }
 

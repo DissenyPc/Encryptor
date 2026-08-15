@@ -11,8 +11,13 @@ public class Decryptor {
     // Nombre del archivo de salida que contendrá el texto descifrado
     private static final String OUTPUT_FILE = "decrypted.txt";
 
-    // Método principal para ejecutar el proceso de descifrado
+    // Método principal para ejecutar el proceso de descifrado con los archivos por defecto
     public void execute() {
+        execute(FILE_NAME, OUTPUT_FILE);
+    }
+
+    // Sobrecarga del método execute que permite especificar los archivos de entrada y salida
+    public void execute(String inputPath, String outputPath) {
         // Llamamos a la clase CrearMatriz para crear la matriz de cifrado
         CrearMatriz creador = new CrearMatriz();
         char[][] matrix = creador.empezarMatriz();
@@ -23,7 +28,7 @@ public class Decryptor {
         String textoDescifrado = "";
         try {
             // Read the entire text file into a String
-            String content = Files.readString(Path.of(FILE_NAME));
+            String content = Files.readString(Path.of(inputPath));
 
             System.out.println("Texto encriptado: " + content);
 
@@ -65,10 +70,11 @@ public class Decryptor {
 
             // Save the original text to a new file
             // Escribimos el resultado descifrado final en el archivo de salida
-            Files.writeString(Path.of(OUTPUT_FILE), textoDescifrado.toString());
+            Files.writeString(Path.of(outputPath), textoDescifrado.toString());
 
         } catch (IOException e) {
             System.out.println("Error leyendo el archivo: " + e.getMessage());
+            throw new RuntimeException("Error al desencriptar el archivo: " + e.getMessage(), e);
         }
 
     }
