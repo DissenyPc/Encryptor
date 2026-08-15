@@ -55,6 +55,7 @@ public class App extends JFrame {
 
         tabbedPane.addTab(" Encriptar ", crearPanelEncriptar());
         tabbedPane.addTab(" Desencriptar ", crearPanelDesencriptar());
+        tabbedPane.addTab(" ℹ Información ", crearPanelInformacion());
 
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
 
@@ -194,6 +195,63 @@ public class App extends JFrame {
         btnDecrypt.setPreferredSize(new Dimension(220, 40));
         btnDecrypt.addActionListener(this::ejecutarDesencriptacion);
         panel.add(btnDecrypt, gbc);
+
+        return panel;
+    }
+
+    // Pestaña informativa con las reglas del encriptador y la lista de caracteres soportados
+    private JPanel crearPanelInformacion() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBorder(new EmptyBorder(15, 15, 15, 15));
+        panel.setBackground(Color.WHITE);
+
+        JEditorPane editorPane = new JEditorPane();
+        editorPane.setContentType("text/html");
+        editorPane.setEditable(false);
+        editorPane.setBackground(Color.WHITE);
+
+        String html = "<html><body style='font-family: Segoe UI, Arial, sans-serif; font-size: 12px; margin: 8px;'>"
+            + "<h2 style='color:#1a1a2e;'>Reglas del Encriptador por Matriz</h2>"
+
+            + "<h3 style='color:#0d6efd; border-bottom:1px solid #dee2e6; padding-bottom:4px;'>&#9888; Caracteres no reconocidos</h3>"
+            + "<p>Si el encriptador encuentra un caracter <b>no incluido en el alfabeto soportado</b>, ese caracter se "
+            + "<b>omite silenciosamente</b> del resultado cifrado. No se produce ningún error, pero ese caracter "
+            + "<b>no aparecerá en el texto descifrado</b>. Esto afecta principalmente a:</p>"
+            + "<ul>"
+            + "<li><b>Vocales con acento</b>: á, é, í, ó, ú, Á, É, Í, Ó, Ú &mdash; <i>No soportadas</i></li>"
+            + "<li><b>Diéresis</b>: ü, Ü &mdash; <i>No soportadas</i></li>"
+            + "<li><b>Saltos de línea</b>: \\n y \\r\\n &mdash; <i>El texto cifrado se genera como una única línea continua. "
+            + "Los saltos de línea del original se pierden.</i></li>"
+            + "<li><b>Tabuladores</b>: \\t &mdash; <i>No soportados</i></li>"
+            + "<li>Cualquier otro caracter especial no listado abajo.</li>"
+            + "</ul>"
+
+            + "<h3 style='color:#198754; border-bottom:1px solid #dee2e6; padding-bottom:4px;'>&#10004; Caracteres permitidos (91 en total)</h3>"
+            + "<p><b>Letras mayúsculas</b> (27):</p>"
+            + "<div style='background:#f8f9fa; padding:6px 10px; border-radius:4px; border:1px solid #dee2e6; font-family:Consolas,monospace;'>"
+            + "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z <b>Ñ</b></div>"
+            + "<p><b>Letras minúsculas</b> (27):</p>"
+            + "<div style='background:#f8f9fa; padding:6px 10px; border-radius:4px; border:1px solid #dee2e6; font-family:Consolas,monospace;'>"
+            + "a b c d e f g h i j k l m n o p q r s t u v w x y z <b>ñ</b></div>"
+            + "<p><b>Dígitos</b> (10):</p>"
+            + "<div style='background:#f8f9fa; padding:6px 10px; border-radius:4px; border:1px solid #dee2e6; font-family:Consolas,monospace;'>"
+            + "0 1 2 3 4 5 6 7 8 9</div>"
+            + "<p><b>Símbolos y puntuación</b> (27):</p>"
+            + "<div style='background:#f8f9fa; padding:6px 10px; border-radius:4px; border:1px solid #dee2e6; font-family:Consolas,monospace;'>"
+            + "( ) % , . - ; : _ ? ¿ ¡ ! ª º @ $ &amp; / + * { } [ ] = <b>[espacio]</b></div>"
+
+            + "<h3 style='color:#fd7e14; border-bottom:1px solid #dee2e6; padding-bottom:4px;'>&#128161; Consejo</h3>"
+            + "<p>Para no perder información en el cifrado, revisa que tu texto use solo los caracteres de la lista. "
+            + "Puedes sustituir vocales acentuadas por sus equivalentes sin acento "
+            + "(por ejemplo, <b>a</b> en lugar de <b>á</b>).</p>"
+            + "</body></html>";
+
+        editorPane.setText(html);
+        editorPane.setCaretPosition(0);
+
+        JScrollPane scrollPane = new JScrollPane(editorPane);
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(222, 226, 230)));
+        panel.add(scrollPane, BorderLayout.CENTER);
 
         return panel;
     }
