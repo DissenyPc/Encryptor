@@ -1,1 +1,14 @@
-¡Hola, Mundo! Código Java 100% listo.
+Muy lejos, mas alla de las montañas de palabras, alejados de los paises
+ de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de 
+ letras, en la costa de la semantica, un gran oceano de lenguas. Un riachuelo llamado 
+ Pons fluye por su pueblo y los abastece con las normas necesarias. Hablamos de un 
+ pais paraisomatico en el que a uno le caen pedazos de frases asadas en la boca. 
+ Ni siquiera los todopoderosos signos de puntuacion dominan a los textos simulados; 
+ una vida, se puede decir, poco ortografica. Pero un buen dia, una pequeña linea de 
+ texto simulado, llamada Lorem Ipsum, decidio aventurarse y salir al vasto mundo de la 
+ gramatica. El gran Oxmox le desanconsejo hacerlo, ya que esas tierras estaban llenas de 
+ comas malvadas, signos de interrogacion salvajes y puntos y coma traicioneros, pero el 
+ texto simulado no se dejo atemorizar. Empaco sus siete versales, enfundo su inicial en el 
+ cinturon y se puso en camino. Cuando ya habia escalado las primeras colinas de las montañas 
+ cursivas, se dio media vuelta para dirigir su mirada por ultima vez, hacia su ciudad natal 
+ Letralandia, el encabezamiento del pueblo Alfabeto y el subtítulo de su

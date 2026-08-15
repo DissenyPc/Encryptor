@@ -25,7 +25,6 @@ public class Encryptor {
             
             // Empezamos el bucle para recorrer cada caracter del contenido del archivo
             for ( int i = 0; i < content.length(); i++) {
-
                 int fila = rand.nextInt(91);
                 char caracter = content.charAt(i);
                 int columna = -1;
@@ -37,6 +36,9 @@ public class Encryptor {
                     }
                 }
                 if (columna != -1) { // Comprobamos si el caracter es codificable
+                    if (rand.nextInt(10)%2 == 0) {
+                        textoCifrado += rand.nextInt(91, 100);
+                    }
                     int control = rand.nextInt(91); // digito de contron para par o impar
 
                     textoCifrado = comprobarTamañoNumero(control, textoCifrado);
